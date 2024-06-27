@@ -8,7 +8,7 @@ function Vaccination() {
             <Menu />
             <div>
                 <h1 className="w-full bg-[#DDEDFD] text-[#152f96] font-semibold text-center p-3 text-xl">
-                    Thông Tin Cá Nhân
+                   Điền Thông Tin Cá Nhân
                 </h1>
             </div>
             <div className="w-[1350px] mx-auto">
@@ -195,7 +195,7 @@ function Vaccination() {
                         Hủy bỏ
                     </button>
                 </Link>
-                <button className='bg-[#58ACDD] w-[100px] h-[40px] rounded-lg text-white font-bold"'>Tiếp Tục</button>
+                <button className='bg-[#58ACDD] w-[100px] h-[40px] rounded-lg text-white font-bold"'>Lưu</button>
             </div>
         </div>
     );

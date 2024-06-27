@@ -25,7 +25,7 @@ const StyledH1 = styled.h1`
     z-index: 10;
 `;
 
-const ItemRight = () => {
+const RegisterItemRight = () => {
     return (
         <BackgroundDiv>
             <StyledH1>
@@ -53,4 +53,4 @@ const ItemRight = () => {
     );
 };
 
-export default ItemRight;
+export default RegisterItemRight;

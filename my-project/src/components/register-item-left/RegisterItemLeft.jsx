@@ -5,7 +5,7 @@ import img2 from '../../assets/img/img-bt-2.png';
 import img3 from '../../assets/img/img-bt-3.png';
 import { fetchUserDatas } from '../../api/apiClient';
 import { Link, useNavigate } from 'react-router-dom';
-function ItemLeft() {
+function RegisterItemLeft() {
     const [userDatas, setUserDatas] = useState(null);
     const [userName, setUserName] = useState("");
     const [password, setPassowrd] = useState("");
@@ -51,10 +51,10 @@ function ItemLeft() {
                     </h1>
                 </div>
                 <div className="flex flex-col gap-3 mb-3">
-                    <h2 className="font-[600] text-[18px] pl-2">Đăng nhập</h2>
+                    <h2 className="font-[600] text-[18px] pl-2">Đăng Ký</h2>
                     <input
                         type="text"
-                        placeholder="Tên đăng nhập"
+                        placeholder="Tên đăng ký"
                         className="w-full px-3 py-2 outline-0 text-[15px] border border-[#ccc] rounded-[3px]"
                         value={userName}
                         onChange={e => setUserName(e.target.value)}
@@ -62,7 +62,37 @@ function ItemLeft() {
                     <div>
                         <input
                             type="text"
-                            placeholder="Mật khẩu"
+                            placeholder="Nhập số điện thoại"
+                            className="w-full px-3 py-2 outline-0 text-[15px] border border-[#ccc] rounded-[3px]"
+                            value={password}
+                            onChange={e => setPassowrd(e.target.value)}
+                        />
+                        {!isLogin ? <span className='text-[12px] text-[red]'>Tên đăng nhập hoặc mật khẩu không hợp lệ</span> : null}
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Nhập email"
+                            className="w-full px-3 py-2 outline-0 text-[15px] border border-[#ccc] rounded-[3px]"
+                            value={password}
+                            onChange={e => setPassowrd(e.target.value)}
+                        />
+                        {!isLogin ? <span className='text-[12px] text-[red]'>Tên đăng nhập hoặc mật khẩu không hợp lệ</span> : null}
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Nhập mật khẩu"
+                            className="w-full px-3 py-2 outline-0 text-[15px] border border-[#ccc] rounded-[3px]"
+                            value={password}
+                            onChange={e => setPassowrd(e.target.value)}
+                        />
+                        {!isLogin ? <span className='text-[12px] text-[red]'>Tên đăng nhập hoặc mật khẩu không hợp lệ</span> : null}
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Nhập lại mật khẩu"
                             className="w-full px-3 py-2 outline-0 text-[15px] border border-[#ccc] rounded-[3px]"
                             value={password}
                             onChange={e => setPassowrd(e.target.value)}
@@ -70,17 +100,10 @@ function ItemLeft() {
                         {!isLogin ? <span className='text-[12px] text-[red]'>Tên đăng nhập hoặc mật khẩu không hợp lệ</span> : null}
                     </div>
                 </div>
-                <div className="flex justify-between items-center gap-x-4">
-                    <div className="flex gap-x-3 items-center ">
-                        <input type="checkbox" name="" id="" className="w-4 h-4 inline-block" />
-                        <span className="text-[14px]">Nhớ tài khoản</span>
-                    </div>
-                    <span className="text-[#428BCA] cursor-pointer text-[14px]">Quên mật khẩu ?</span>
-                </div>
+                <button className='w-full text-white mt-1 text-[15px] font-[500] bg-[#428BCA] px-3 py-2 rounded-[3px]' onClick={() => checkLogin()}>Đăng Ký</button>
                 <div>
-                    <h1 className='mt-[20px]'>Bạn chưa có tài khoản? <Link to={"/dangky"}><span className='text-[#428BCA]'>Hãy đăng Ký</span></Link></h1>
+                    <h1 className='mt-[20px]'>Bạn đã có tài khoản? <Link to={"/"}><span className='text-[#428BCA]'>Hãy đăng nhập</span></Link></h1>
                 </div>
-                <button className='w-full text-white mt-6 text-[15px] font-[500] bg-[#428BCA] px-3 py-2 rounded-[3px]' onClick={() => checkLogin()}>Đăng nhập</button>
             </div>
             <div>
                 <div className='text-[14px] mt-[100px]'>
@@ -96,4 +119,4 @@ function ItemLeft() {
     );
 }
 
-export default ItemLeft;
+export default RegisterItemLeft;
