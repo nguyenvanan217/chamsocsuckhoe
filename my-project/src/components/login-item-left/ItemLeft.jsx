@@ -1,9 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../assets/img/logo1.png';
 import img1 from '../../assets/img/img-bt-1.png';
 import img2 from '../../assets/img/img-bt-2.png';
 import img3 from '../../assets/img/img-bt-3.png';
+import { fetchUserDatas } from '../../api/apiClient';
+import { useNavigate } from 'react-router-dom';
 function ItemLeft() {
+    const [userDatas, setUserDatas] = useState(null);
+    const [userName, setUserName] = useState("");
+    const [password, setPassowrd] = useState("");
+    const [isLogin, setIsLogin] = useState(true);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const getUserDatas = async () => {
+            try {
+                const data = await fetchUserDatas();
+                setUserDatas(data);
+            } catch (error) {
+                console.error("Failed to fetch user data", error);
+            }
+        }
+        getUserDatas();
+    }, []);
+    
+    const checkLogin = () => {
+        let loginSuccessful = false;
+        for (let i = 0; i < userDatas.length; i++) {
+            if (userDatas[i].name === userName && userDatas[i].password === password) {
+                console.log("Login successful");
+                setIsLogin(true);
+                loginSuccessful = true;
+                navigate('/thongtintiemchung');// chuyển tới trang phù hợp khi login thành công
+                break;
+            }
+        }
+        if (!loginSuccessful) {
+            setIsLogin(false);
+            console.log("Login failed");
+        }
+    }
+
     return (
         <div className="w-[26%] min-h-screen px-3 py-6 overflow-hidden flex flex-col justify-between">
             <div>
@@ -19,12 +56,19 @@ function ItemLeft() {
                         type="text"
                         placeholder="Tên đăng nhập"
                         className="w-full px-3 py-2 outline-0 text-[15px] border border-[#ccc] rounded-[3px]"
+                        value={userName}
+                        onChange={e => setUserName(e.target.value)}
                     />
-                    <input
-                        type="text"
-                        placeholder="Mật khẩu"
-                        className="w-full px-3 py-2 outline-0 text-[15px] border border-[#ccc] rounded-[3px]"
-                    />
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Mật khẩu"
+                            className="w-full px-3 py-2 outline-0 text-[15px] border border-[#ccc] rounded-[3px]"
+                            value={password}
+                            onChange={e => setPassowrd(e.target.value)}
+                        />
+                        {!isLogin ? <span className='text-[12px] text-[red]'>Tên đăng nhập hoặc mật khẩu không hợp lệ</span> : null}
+                    </div>
                 </div>
                 <div className="flex justify-between items-center gap-x-4">
                     <div className="flex gap-x-3 items-center ">
@@ -33,7 +77,7 @@ function ItemLeft() {
                     </div>
                     <span className="text-[#428BCA] cursor-pointer text-[14px]">Quên mật khẩu ?</span>
                 </div>
-                <button className='w-full text-white mt-6 text-[15px] font-[500] bg-[#428BCA] px-3 py-2 rounded-[3px]'>Đăng nhập</button>
+                <button className='w-full text-white mt-6 text-[15px] font-[500] bg-[#428BCA] px-3 py-2 rounded-[3px]' onClick={() => checkLogin()}>Đăng nhập</button>
             </div>
             <div>
                 <div className='text-[14px] mt-[100px]'>
