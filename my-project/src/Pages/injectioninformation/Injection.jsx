@@ -10,7 +10,7 @@ function Injection() {
                     Thông Tin Vaccine
                 </h1>
             </div>
-            <div className="w-[1350px] mx-auto">
+            <div className="max-w-[1350px] mx-auto">
                 <div className="text-2xl my-4">Thông tin mũi tiêm 1</div>
                 <div className="flex justify-between">
                     <div>
