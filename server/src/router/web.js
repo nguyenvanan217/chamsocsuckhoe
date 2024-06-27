@@ -32,6 +32,6 @@ router.post("/user_profiles", createUserProfiles);
 router.put("/user_profiles/:id", updateUserProfilesById);
 router.delete("/user_profiles/:id", deleteUserProfilesById);
 
-// API:http://localhost:3000/chamsocsuckhoe/$key
+// API:http://localhost:8888/chamsocsuckhoe/$key
 
 module.exports = router;

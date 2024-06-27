@@ -47,7 +47,8 @@ const addChildCheckupHistory = async (childData) => {
         childData.regular_check_up_date,
         childData.height,
         childData.weight,
-        childData.condition_description]);
+        childData.condition_description
+    ]);
     return result.insertId; // Trả về ID của bản ghi mới được thêm vào
 };
 const updateChildCheckupHistory = async (childId, childData) => {
