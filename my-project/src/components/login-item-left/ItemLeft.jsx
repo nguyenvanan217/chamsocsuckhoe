@@ -5,7 +5,7 @@ import img2 from '../../assets/img/img-bt-2.png';
 import img3 from '../../assets/img/img-bt-3.png';
 function ItemLeft() {
     return (
-        <div className="w-1/4 min-h-screen px-4 py-8 bg-yellow-300 overflow-hidden">
+        <div className="w-1/3 min-h-screen px-4 py-8 overflow-hidden">
             <div className="flex items-center gap-4 mb-28">
                 <img src={logo} alt="" className="h-[80px] w-auto" />
                 <h1 className="text-2xl text-[#428BCA]">
