@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Menu from '../../components/menu/Menu';
 import { format, addDays } from 'date-fns';
 import { fetchUserProfilesByUserId, updateUserProfiles } from '../../api/apiClient';
+import { Link, useNavigate } from 'react-router-dom';
 
 function MyInfor() {
     const [isChangeInfo, setIsChangeInfo] = useState(false);
@@ -15,11 +16,15 @@ function MyInfor() {
     const [birthPlace, setBirthPlace] = useState('');
     const [address, setAddress] = useState('');
 
-    // lấy id người dùng vừa đăng nhập
+    const navigate = useNavigate();
+
+    // lấy id người dùng vừa đăng nhập và kiểm tra đăng nhập
     useEffect(() => {
         const user_id = localStorage.getItem('user_id');
         if (user_id) {
             setUserId(JSON.parse(user_id));
+        } else {
+            navigate('/');
         }
     }, [])
 
@@ -55,7 +60,6 @@ function MyInfor() {
         }
     }
     const handelSubmit = () => {
-        console.log(birthDate);
         updateUserProfiles(userProfilesData.id, {
             name,
             gender,

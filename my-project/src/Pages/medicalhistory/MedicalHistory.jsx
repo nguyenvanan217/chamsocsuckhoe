@@ -1,39 +1,60 @@
-import React, { useState } from 'react';
-import { BsCheck } from 'react-icons/bs';
+import React, { useEffect, useState } from 'react';
 import { MdOutlineTipsAndUpdates, MdDelete } from 'react-icons/md';
-import { MedicalHistoryList as initialMedicalHistoryList } from './MedicalHistoryList';
 import Menu from '../../components/menu/Menu';
+import { useNavigate } from 'react-router-dom';
+import { deleteMedicalHistory, fetchMedicalHistoryByUserId } from '../../api/apiClient';
+
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function MedicalHistory() {
-    const [MedicalHistoryList, setMedicalHistoryList] = useState(initialMedicalHistoryList);
-    const [editingIndex, setEditingIndex] = useState(null);
-    const [editData, setEditData] = useState({});
+    const [medicalHistoryList, setMedicalHistoryList] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [idDelete, setIdDelete] = useState();
+    const [userId, setUserId] = useState();
+    const navigate = useNavigate();
 
-    const handleDelete = (indexToDelete) => {
-        const newList = MedicalHistoryList.filter((_, index) => index !== indexToDelete);
-        setMedicalHistoryList(newList);
-    };
-
-    const toggleEdit = (index) => {
-        if (editingIndex === index) {
-            setEditingIndex(null);
+    // lấy id người dùng vừa đăng nhập và kiểm tra đăng nhập
+    useEffect(() => {
+        const user_id = localStorage.getItem('user_id');
+        if (user_id) {
+            setUserId(JSON.parse(user_id));
         } else {
-            setEditingIndex(index);
-            setEditData(MedicalHistoryList[index]);
+            navigate('/');
         }
+    }, [navigate])
+
+    useEffect(() => {
+        const getMedicalHistory = async () => {
+            if (userId) {
+                try {
+                    const data = await fetchMedicalHistoryByUserId(userId);
+                    setMedicalHistoryList(data);
+                } catch (error) {
+                    console.error("Failed to fetch user data", error);
+                }
+            }
+        };
+        getMedicalHistory();
+    }, [userId])
+
+    const confirmDelete = () => {
+        setMedicalHistoryList(prev => prev.filter(e => e.id !== idDelete))
+        setOpen(false);
+        deleteMedicalHistory(idDelete);
     };
 
-    const handleSave = () => {
-        const updatedList = MedicalHistoryList.map((item, idx) =>
-            idx === editingIndex ? { ...item, ...editData } : item,
-        );
-        setMedicalHistoryList(updatedList);
-        setEditingIndex(null);
+    const handleClickOpen = (id) => {
+        setIdDelete(id);
+        setOpen(true);
     };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setEditData({ ...editData, [name]: value });
+    const handleClose = () => {
+        setOpen(false);
     };
 
     return (
@@ -44,71 +65,58 @@ function MedicalHistory() {
                     Lịch Sử Khám Chữa Bệnh
                 </h1>
             </div>
-            <div className="w-[950px] mx-auto my-8">
+            <div className='w-[950px] mx-auto flex justify-end my-3'>
+                <button className='bg-[green] text-white px-7 py-1 text-[17px] rounded-[3px]'>Thêm</button>
+            </div>
+            <div className="w-[950px] mx-auto">
                 <ul className="flex justify-between mb-3 p-[10px]">
+                    <li className="text-lg flex w-[10%] h-5">STT</li>
                     <li className="text-lg flex w-[20%] h-5">Ngày khám</li>
                     <li className="text-lg flex w-[30%] h-5">Triệu chứng</li>
                     <li className="text-lg flex w-[30%] h-5">Tên bệnh</li>
                     <li className="text-lg flex w-[31%] h-5">Thuốc uống</li>
                 </ul>
-                {MedicalHistoryList.map((item, index) => (
+                {medicalHistoryList.map((item, index) => (
                     <div key={index} className="flex items-center bg-[#F2F2F2] rounded-md mb-3">
-                        {editingIndex === index ? (
-                            <form
-                                className="flex w-full justify-between p-[10px]"
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    handleSave();
-                                }}
-                            >
-                                <input
-                                    name="ngaykham"
-                                    value={editData.ngaykham}
-                                    onChange={handleChange}
-                                    className="w-[20%] text-lg"
-                                />
-                                <input
-                                    name="trieuchung"
-                                    value={editData.trieuchung}
-                                    onChange={handleChange}
-                                    className="w-[30%] text-lg"
-                                />
-                                <input
-                                    name="tenbenh"
-                                    value={editData.tenbenh}
-                                    onChange={handleChange}
-                                    className="w-[30%] text-lg"
-                                />
-                                <input
-                                    name="muitiem"
-                                    value={editData.muitiem}
-                                    onChange={handleChange}
-                                    className="w-[20%] text-lg"
-                                />
-                                <button type="submit" className="text-3xl cursor-pointer ml-3">
-                                    <BsCheck />
-                                </button>
-                            </form>
-                        ) : (
-                            <ul className="flex w-full justify-between p-[10px]">
-                                <li className="text-lg flex w-[20%]">{item.ngaykham}</li>
-                                <li className="text-lg flex w-[30%]">{item.trieuchung}</li>
-                                <li className="text-lg flex w-[30%]">{item.tenbenh}</li>
-                                <li className="text-lg flex w-[20%]">{item.thuocuong}</li>
-                                <div className="flex gap-5 ml-3">
-                                    <li className="text-3xl cursor-pointer" onClick={() => toggleEdit(index)}>
-                                        <MdOutlineTipsAndUpdates />
-                                    </li>
-                                    <li className="text-3xl cursor-pointer" onClick={() => handleDelete(index)}>
-                                        <MdDelete />
-                                    </li>
-                                </div>
-                            </ul>
-                        )}
+                        <form className="flex w-full justify-between p-[10px]">
+                            <span className="w-[10%] text-lg">{index + 1}</span>
+                            <span className="w-[20%] text-lg">{item.examination_date.split('T')[0]}</span>
+                            <span className="w-[30%] text-lg">{item.symptoms}</span>
+                            <span className="w-[30%] text-lg">{item.disease_name}</span>
+                            <span className="w-[20%] text-lg">{item.main_medication}</span>
+                        </form>
+                        <div className="flex gap-5 ml-3">
+                            <div className="text-3xl cursor-pointer" >
+                                <MdOutlineTipsAndUpdates />
+                            </div>
+                            <div className="text-3xl cursor-pointer" onClick={() => handleClickOpen(item.id)}>
+                                <MdDelete />
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
-        </div>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Xác nhận xóa?"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Bạn có chắc chắn muốn xóa mục này không?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Hủy</Button>
+                    <Button onClick={confirmDelete} autoFocus>
+                        Xóa
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div >
     );
 }
 

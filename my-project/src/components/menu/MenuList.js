@@ -35,11 +35,11 @@ export const MenuList = [
         url: '/lichsukhamtreem',
         cName: 'nav-links',
     },
-    {
-        title: 'Đăng Xuất',
-        icon: <FaPowerOff />,
-        url: '/',
-        cName: 'nav-links',
-    },
-  
+    // {
+    //     title: 'Đăng Xuất',
+    //     icon: <FaPowerOff />,
+    //     url: '/',
+    //     cName: 'nav-links',
+    // },
+
 ];

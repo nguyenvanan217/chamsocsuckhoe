@@ -27,7 +27,7 @@ export const fetchUserProfilesByUserId = async (user_id) => {
         const response = await axios.get(`${API_BASE_URL}/user_profiles/${user_id}`);
         return response.data;
     } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching user profiles data:", error);
         throw error;
     }
 }
@@ -36,7 +36,88 @@ export const updateUserProfiles = async (id, userProfilesData) => {
         const response = await axios.put(`${API_BASE_URL}/user_profiles/${id}`, userProfilesData);
         return response.data;
     } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching user profiles data:", error);
+        throw error;
+    }
+}
+
+
+
+export const fetchMedicalHistoryByUserId = async (user_id) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/medical_history/${user_id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching medical history data:", error);
+        throw error;
+    }
+}
+
+export const addMedicalHistory = async (medicalHistoryData) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/medical_history`, medicalHistoryData);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching medical history data:", error);
+        throw error;
+    }
+}
+
+export const updateMedicalHistory = async (id, medicalHistoryData) => {
+    try {
+        const response = await axios.put(`${API_BASE_URL}/medical_history/${id}`, medicalHistoryData);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching medical history data:", error);
+        throw error;
+    }
+}
+export const deleteMedicalHistory = async (id) => {
+    try {
+        const response = await axios.delete(`${API_BASE_URL}/medical_history/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching medical history data:", error);
+        throw error;
+    }
+}
+
+
+export const fetchVaccinationHistoryByUserId = async (user_id) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/vaccination_history/${user_id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching medical history data:", error);
+        throw error;
+    }
+}
+
+export const addVaccinationHistory = async (vaccinationHistoryData) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/vaccination_history`, vaccinationHistoryData);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching medical history data:", error);
+        throw error;
+    }
+}
+
+export const updateVaccinationHistory = async (id, vaccinationHistoryData) => {
+    try {
+        const response = await axios.put(`${API_BASE_URL}/vaccination_history/${id}`, vaccinationHistoryData);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching medical history data:", error);
+        throw error;
+    }
+}
+export const deleteVaccinationHistory = async (id) => {
+    try {
+        const response = await axios.delete(`${API_BASE_URL}/vaccination_history/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching medical history data:", error);
         throw error;
     }
 }
