@@ -23,13 +23,14 @@ function ItemLeft() {
         }
         getUserDatas();
     }, []);
-    
+
     const checkLogin = () => {
         let loginSuccessful = false;
         for (let i = 0; i < userDatas.length; i++) {
             if (userDatas[i].name === userName && userDatas[i].password === password) {
                 console.log("Login successful");
                 setIsLogin(true);
+                localStorage.setItem('user_id', JSON.stringify(userDatas[i].id));
                 loginSuccessful = true;
                 navigate('/thongtintiemchung');// chuyển tới trang phù hợp khi login thành công
                 break;
@@ -78,7 +79,7 @@ function ItemLeft() {
                     <span className="text-[#428BCA] cursor-pointer text-[14px]">Quên mật khẩu ?</span>
                 </div>
                 <div>
-                    <h1 className='mt-[20px]'>Bạn chưa có tài khoản? <Link to={"/dangky"}><span className='text-[#428BCA]'>Hãy đăng Ký</span></Link></h1>
+                    <h1 className='mt-[20px] text-[15px]'>Bạn chưa có tài khoản? <Link to={"/dangky"}><span className='text-[#428BCA]'>Hãy đăng Ký</span></Link></h1>
                 </div>
                 <button className='w-full text-white mt-6 text-[15px] font-[500] bg-[#428BCA] px-3 py-2 rounded-[3px]' onClick={() => checkLogin()}>Đăng nhập</button>
             </div>
