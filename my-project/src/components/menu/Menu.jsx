@@ -16,7 +16,7 @@ function Menu() {
             <ul className='flex justify-between gap-6 w-4/4'>
                 {MenuList.map((item, index) => {
                     return (
-                        <li key={index} className='text-base'>
+                        <li key={index} className='text-sm whitespace-nowrap'>
                             <NavLink to={item.url} className={item.cName}>
                                 <div className='flex items-center gap-1'>
                                     {item.title} {item.icon && item.icon}

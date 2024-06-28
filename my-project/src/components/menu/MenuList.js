@@ -1,4 +1,4 @@
-import { FaPowerOff } from "react-icons/fa6";
+import { FaPowerOff } from 'react-icons/fa6';
 export const MenuList = [
     {
         title: 'Thông Tin Người Dùng',
@@ -35,11 +35,15 @@ export const MenuList = [
         url: '/lichsukhamtreem',
         cName: 'nav-links',
     },
+    {
+        title: 'Thông Tin Khám Định Kỳ Trẻ Em',
+        url: '/thongtinkhamdinhkytreem',
+        cName: 'nav-links',
+    },
     // {
     //     title: 'Đăng Xuất',
     //     icon: <FaPowerOff />,
     //     url: '/',
     //     cName: 'nav-links',
     // },
-
 ];
