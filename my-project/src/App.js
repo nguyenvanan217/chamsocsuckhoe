@@ -5,13 +5,15 @@ import Login from '../src/Pages/loginForm/Login';
 import Injection from './Pages/injectioninformation/Injection';
 import Resigter from './Pages/registerForm/Register';
 import MedicalHistory from './Pages/medicalhistory/MedicalHistory';
-import VaccinationHistory from './Pages/vaccinationhistory/VaccinationhHistory';
+import VaccinationHistory from './Pages/vaccinationhistory/VaccinationhHistory.jsx';
 import ChildrenExHistory from './Pages/childrenexhistory/ChildrenExHistory';
 import MyInfor from './Pages/informe/MyInfor';
+import InforMedical from './Pages/informedical/InforMedical.jsx';
 export default function App() {
     return <>
         <Routes>
             <Route path="/thongtinnguoidung" element={<MyInfor />} />
+            <Route path="/thongtinkhambenh" element={<InforMedical />} />
             <Route path="/lichsukhamchuabenh" element={<MedicalHistory />} />
             <Route path="/lichsutiemphong" element={<VaccinationHistory />} />
             <Route path="/lichsukhamtreem" element={<ChildrenExHistory />} />

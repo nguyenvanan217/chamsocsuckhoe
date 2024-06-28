@@ -1,7 +1,13 @@
+import { FaPowerOff } from "react-icons/fa6";
 export const MenuList = [
     {
         title: 'Thông Tin Người Dùng',
         url: '/thongtinnguoidung',
+        cName: 'nav-links',
+    },
+    {
+        title: 'Thông Tin Khám Bệnh',
+        url: '/thongtinkhambenh',
         cName: 'nav-links',
     },
     {
@@ -30,13 +36,9 @@ export const MenuList = [
         cName: 'nav-links',
     },
     {
-        title: 'Đăng Nhập',
+        title: 'Đăng Xuất',
+        icon: <FaPowerOff />,
         url: '/',
-        cName: 'nav-links',
-    },
-    {
-        title: 'Đăng Ký',
-        url: '/dangky',
         cName: 'nav-links',
     },
   
