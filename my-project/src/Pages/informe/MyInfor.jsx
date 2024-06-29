@@ -26,7 +26,7 @@ function MyInfor() {
         } else {
             navigate('/');
         }
-    }, [])
+    }, [navigate])
 
     useEffect(() => {
         const getInfo = async () => {

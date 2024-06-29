@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdOutlineTipsAndUpdates, MdDelete } from 'react-icons/md';
 import Menu from '../../components/menu/Menu';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { deleteMedicalHistory, fetchMedicalHistoryByUserId } from '../../api/apiClient';
 
 import Button from '@mui/material/Button';
@@ -65,9 +65,9 @@ function MedicalHistory() {
                     Lịch Sử Khám Chữa Bệnh
                 </h1>
             </div>
-            <div className='w-[950px] mx-auto flex justify-end my-3'>
+            <Link className='w-[950px] mx-auto flex justify-end my-3' to={`/thongtinkhambenh/${0}/${true}`}>
                 <button className='bg-green-500 text-white px-7 py-1 text-[17px] rounded-[3px]'>Thêm</button>
-            </div>
+            </Link>
             <div className="w-[950px] mx-auto">
                 <ul className="flex justify-between mb-3 p-[10px]">
                     <li className="text-lg flex w-[10%] h-5">STT</li>
@@ -76,25 +76,32 @@ function MedicalHistory() {
                     <li className="text-lg flex w-[30%] h-5">Tên bệnh</li>
                     <li className="text-lg flex w-[31%] h-5">Thuốc uống</li>
                 </ul>
-                {medicalHistoryList.map((item, index) => (
-                    <div key={index} className="flex items-center bg-[#F2F2F2] rounded-md mb-3">
-                        <form className="flex w-full justify-between p-[10px]">
-                            <span className="w-[10%] text-lg">{index + 1}</span>
-                            <span className="w-[20%] text-lg">{item.examination_date.split('T')[0]}</span>
-                            <span className="w-[30%] text-lg">{item.symptoms}</span>
-                            <span className="w-[30%] text-lg">{item.disease_name}</span>
-                            <span className="w-[20%] text-lg">{item.main_medication}</span>
-                        </form>
-                        <div className="flex gap-5 ml-3">
-                            <div className="text-3xl cursor-pointer" >
-                                <MdOutlineTipsAndUpdates />
+                {!medicalHistoryList.length ? <div className="w-full flex justify-center" >
+                    Lịch sử trống
+                </div> :
+                    (
+                        medicalHistoryList.map((item, index) => (
+                            <div key={index} className="flex items-center bg-[#F2F2F2] rounded-md mb-3">
+                                <Link className="flex w-full justify-between p-[10px]" to={`/thongtinkhambenh/${item.id}/${false}`} >
+                                    <span className="w-[10%] text-lg">{index + 1}</span>
+                                    <span className="w-[20%] text-lg">{item.examination_date && item.examination_date.split('T')[0]}</span>
+                                    <span className="w-[30%] text-lg">{item.symptoms}</span>
+                                    <span className="w-[30%] text-lg">{item.disease_name}</span>
+                                    <span className="w-[20%] text-lg">{item.main_medication}</span>
+                                </Link>
+                                <div className="flex gap-5 ml-3">
+                                    <div className="text-3xl cursor-pointer">
+                                        <MdOutlineTipsAndUpdates />
+                                    </div>
+                                    <div className="text-3xl cursor-pointer" onClick={() => handleClickOpen(item.id)}>
+                                        <MdDelete />
+                                    </div>
+                                </div>
                             </div>
-                            <div className="text-3xl cursor-pointer" onClick={() => handleClickOpen(item.id)}>
-                                <MdDelete />
-                            </div>
-                        </div>
-                    </div>
-                ))}
+                        ))
+                    )
+                }
+
             </div>
 
             <Dialog

@@ -1,4 +1,3 @@
-import { FaPowerOff } from 'react-icons/fa6';
 export const MenuList = [
     {
         title: 'Thông Tin Người Dùng',
@@ -10,11 +9,11 @@ export const MenuList = [
         url: '/thongtintaikhoan',
         cName: 'nav-links',
     },
-    {
-        title: 'Thông Tin Khám Bệnh',
-        url: '/thongtinkhambenh',
-        cName: 'nav-links',
-    },
+    // {
+    //     title: 'Thông Tin Khám Bệnh',
+    //     url: '/thongtinkhambenh',
+    //     cName: 'nav-links',
+    // },
     {
         title: 'Thông Tin Tiêm Chủng',
         url: '/thongtintiemchung',
@@ -45,10 +44,4 @@ export const MenuList = [
         url: '/thongtinkhamdinhkytreem',
         cName: 'nav-links',
     },
-    // {
-    //     title: 'Đăng Xuất',
-    //     icon: <FaPowerOff />,
-    //     url: '/',
-    //     cName: 'nav-links',
-    // },
 ];

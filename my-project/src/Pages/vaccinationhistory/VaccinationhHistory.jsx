@@ -67,7 +67,7 @@ function VaccinationhHistory() {
                 </h1>
             </div>
             <div className='w-[950px] mx-auto flex justify-end my-3'>
-                <button className='bg-[green] text-white px-7 py-1 text-[17px] rounded-[3px]'>Thêm</button>
+                <button className='bg-green-500 text-white px-7 py-1 text-[17px] rounded-[3px]'>Thêm</button>
             </div>
             <div className="w-[950px] mx-auto">
                 <ul className="flex justify-between mb-3 p-[10px]">
@@ -77,25 +77,32 @@ function VaccinationhHistory() {
                     <li className="text-lg flex w-[25%] h-5">Phòng Bệnh</li>
                     <li className="text-lg flex w-[40%] h-5">Tình Trạng Sau Tiêm</li>
                 </ul>
-                {vaccinationhHistoryList.map((item, index) => (
-                    <div key={index} className="flex items-center bg-[#F2F2F2] rounded-md mb-3">
-                        <form className="flex w-full justify-between p-[10px]">
-                            <span className="w-[10%] text-lg">{index + 1}</span>
-                            <span className="w-[20%] text-lg">{item.vaccination_dates.split('T')[0]}</span>
-                            <span className="w-[25%] text-lg">{item.vaccination_names}</span>
-                            <span className="w-[25%] text-lg">{item.vaccination_rooms}</span>
-                            <span className="w-[30%] text-lg">{item.post_vaccination_status}</span>
-                        </form>
-                        <div className="flex gap-5 ml-3">
-                            <div className="text-3xl cursor-pointer" >
-                                <MdOutlineTipsAndUpdates />
-                            </div>
-                            <div className="text-3xl cursor-pointer" onClick={() => handleClickOpen(item.id)}>
-                                <MdDelete />
-                            </div>
-                        </div>
+                {!vaccinationhHistoryList.length ?
+                    <div className="w-full flex justify-center" >
+                        Lịch sử trống
                     </div>
-                ))}
+                    : (
+                        vaccinationhHistoryList.map((item, index) => (
+                            <div key={index} className="flex items-center bg-[#F2F2F2] rounded-md mb-3">
+                                <form className="flex w-full justify-between p-[10px]">
+                                    <span className="w-[10%] text-lg">{index + 1}</span>
+                                    <span className="w-[20%] text-lg">{item.vaccination_dates.split('T')[0]}</span>
+                                    <span className="w-[25%] text-lg">{item.vaccination_names}</span>
+                                    <span className="w-[25%] text-lg">{item.vaccination_rooms}</span>
+                                    <span className="w-[30%] text-lg">{item.post_vaccination_status}</span>
+                                </form>
+                                <div className="flex gap-5 ml-3">
+                                    <div className="text-3xl cursor-pointer" >
+                                        <MdOutlineTipsAndUpdates />
+                                    </div>
+                                    <div className="text-3xl cursor-pointer" onClick={() => handleClickOpen(item.id)}>
+                                        <MdDelete />
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    )}
+
             </div>
             <Dialog
                 open={open}

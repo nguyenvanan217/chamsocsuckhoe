@@ -1,6 +1,5 @@
 import React from 'react';
 import Menu from '../../components/menu/Menu';
-import { Link } from 'react-router-dom';
 
 function Vaccination() {
     return (
@@ -33,9 +32,9 @@ function Vaccination() {
                 </div>
                 <div className="flex w-full gap-16 items-center">
                     <p className="text-lg w-1/2 font-bold">Chi Phí Tiêm Phòng</p>
-                    <input type="text" className="w-[141px] h-[37px] outline-none px-2 text-black bg-red-400 placeholder-black" placeholder='VNĐ'/>
+                    <input type="text" className="w-[141px] h-[37px] outline-none px-2 text-black bg-red-400 placeholder-black" placeholder='VNĐ' />
                 </div>
-               
+
             </div>
             <div className="mt-9 flex justify-center gap-10">
                 <button className="border border-orange-800 w-[100px] h-[40px] rounded-lg text-red-700 font-bold">
