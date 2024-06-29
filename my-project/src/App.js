@@ -10,6 +10,7 @@ import ChildrenExHistory from './Pages/childrenexhistory/ChildrenExHistory';
 import MyInfor from './Pages/informe/MyInfor';
 import InforMedical from './Pages/informedical/InforMedical.jsx';
 import ChildrenPerDisInfor from './Pages/Childrenperdisinformation/ChildrenPerDisInfor.jsx';
+import User from './Pages/userinfor/User.jsx';
 export default function App() {
     return <>
         <Routes>
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/lichsukhamchuabenh" element={<MedicalHistory />} />
             <Route path="/lichsutiemphong" element={<VaccinationHistory />} />
             <Route path="/thongtinkhamdinhkytreem" element={<ChildrenPerDisInfor />} />
+            <Route path="/thongtintaikhoan" element={<User />} />
             <Route path="/lichsukhamtreem" element={<ChildrenExHistory />} />
             <Route path="/" element={<Login />} />  
             <Route path="/dangky" element={<Resigter />} />

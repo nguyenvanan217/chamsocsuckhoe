@@ -6,6 +6,11 @@ export const MenuList = [
         cName: 'nav-links',
     },
     {
+        title: 'Thông Tin Tài Khoản',
+        url: '/thongtintaikhoan',
+        cName: 'nav-links',
+    },
+    {
         title: 'Thông Tin Khám Bệnh',
         url: '/thongtinkhambenh',
         cName: 'nav-links',
