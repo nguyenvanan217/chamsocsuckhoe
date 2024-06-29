@@ -66,7 +66,7 @@ function MedicalHistory() {
                 </h1>
             </div>
             <div className='w-[950px] mx-auto flex justify-end my-3'>
-                <button className='bg-[green] text-white px-7 py-1 text-[17px] rounded-[3px]'>Thêm</button>
+                <button className='bg-green-500 text-white px-7 py-1 text-[17px] rounded-[3px]'>Thêm</button>
             </div>
             <div className="w-[950px] mx-auto">
                 <ul className="flex justify-between mb-3 p-[10px]">

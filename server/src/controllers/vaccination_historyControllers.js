@@ -1,4 +1,4 @@
-const { getAllVaccinationHistory, addVaccinationHistory, updateVaccinationHistory, deleteVaccinationHistory } = require("../service/SRUDService")
+const { getAllVaccinationHistory, getVaccinationHistoryByUserID, addVaccinationHistory, updateVaccinationHistory, deleteVaccinationHistory } = require("../service/SRUDService")
 
 const getVaccinationHistory = async (req, res) => {
     try {
@@ -6,6 +6,20 @@ const getVaccinationHistory = async (req, res) => {
         return res.json(result);
     } catch (error) {
         console.error('Error fetching vaccination_history:', error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+
+const _getVaccinationHistoryByUserID = async (req, res) => {
+    const user_id = req.params.user_id;
+    try {
+        let result = await getVaccinationHistoryByUserID(user_id);
+        if (!result) {
+            return res.status(404).json({ message: 'User profile not found' });
+        }
+        return res.json(result);
+    } catch (error) {
+        console.error('Error fetching user_profiles:', error);
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 }
@@ -47,6 +61,7 @@ const deleteVaccinationHistoryById = async (req, res) => {
 
 module.exports = {
     getVaccinationHistory,
+    _getVaccinationHistoryByUserID,
     createVaccinationHistory,
     updateVaccinationHistoryById,
     deleteVaccinationHistoryById,

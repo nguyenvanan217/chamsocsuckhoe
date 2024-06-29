@@ -1,4 +1,4 @@
-const { getAllMedicalHistory, addMedicalHistory, updateMedicalHistory, deleteMedicalHistory } = require("../service/SRUDService")
+const { getAllMedicalHistory, getMedicalHistoryByID, getMedicalHistoryByUserID, addMedicalHistory, updateMedicalHistory, deleteMedicalHistory } = require("../service/SRUDService")
 
 const getMedicalHistory = async (req, res) => {
     try {
@@ -9,6 +9,35 @@ const getMedicalHistory = async (req, res) => {
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 }
+
+const _getMedicalHistoryByID = async (req, res) => {
+    const id = req.params.id;
+    try {
+        let result = await getMedicalHistoryByID(id);
+        if (!result) {
+            return res.status(404).json({ message: 'User profile not found' });
+        }
+        return res.json(result);
+    } catch (error) {
+        console.error('Error fetching user_profiles:', error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+
+const _getMedicalHistoryByUserID = async (req, res) => {
+    const user_id = req.params.user_id;
+    try {
+        let result = await getMedicalHistoryByUserID(user_id);
+        if (!result) {
+            return res.status(404).json({ message: 'User profile not found' });
+        }
+        return res.json(result);
+    } catch (error) {
+        console.error('Error fetching user_profiles:', error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+
 const createMedicalHistory = async (req, res) => {
     const medicalHistoryData = req.body;
     try {
@@ -47,6 +76,8 @@ const deleteMedicalHistoryById = async (req, res) => {
 
 module.exports = {
     getMedicalHistory,
+    _getMedicalHistoryByID,
+    _getMedicalHistoryByUserID,
     createMedicalHistory,
     updateMedicalHistoryById,
     deleteMedicalHistoryById,

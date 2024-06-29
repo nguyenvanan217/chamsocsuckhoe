@@ -1,8 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Menu from '../../components/menu/Menu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { fetchMedicalHistoryById } from '../../api/apiClient';
 
-function InforMedical() {
+function InforMedical({ }) {
+    const [medicalHistory, setMedicalHistory] = useState([]);
+    const [userId, setUserId] = useState();
+    const navigate = useNavigate();
+
+    // lấy id người dùng vừa đăng nhập và kiểm tra đăng nhập
+    useEffect(() => {
+        const user_id = localStorage.getItem('user_id');
+        if (user_id) {
+            setUserId(JSON.parse(user_id));
+        } else {
+            navigate('/');
+        }
+    }, [navigate])
+
+    useEffect(() => {
+        const getMedicalHistory = async () => {
+            if (userId) {
+                try {
+                    const data = await fetchMedicalHistoryById(8);
+                    setMedicalHistory(data[0]);
+                    console.log(medicalHistory);
+                } catch (error) {
+                    console.error("Failed to fetch user data", error);
+                }
+            }
+        };
+        getMedicalHistory();
+    }, [userId])
     return (
         <div>
             <Menu />

@@ -15,9 +15,6 @@ const addUserWithProfile = async (userData) => {
     const addUserProfileQuery = 'INSERT INTO USER_PROFILES (user_id, name) VALUES (?, ?)';
     await connection.query(addUserProfileQuery, [userId, userData.name]);
 
-    // Commit transaction
-    await connection.commit();
-
     return userId; // Trả về ID của bản ghi mới được thêm vào
 };
 
@@ -39,19 +36,7 @@ const getAllChildCheckupHistory = async () => {
     return result;
 };
 const addChildCheckupHistory = async (childData) => {
-    const query = 'INSERT INTO CHILD_CHECKUP_HISTORY (name, gender, birth_date, regular_check_up_date, height, weight, condition_description) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    const [result] = await connection.query(query, [
-        childData.name,
-        childData.gender,
-        childData.birth_date,
-        childData.regular_check_up_date,
-        childData.height,
-        childData.weight,
-        childData.condition_description]);
-    return result.insertId; // Trả về ID của bản ghi mới được thêm vào
-};
-const updateChildCheckupHistory = async (childId, childData) => {
-    const query = 'UPDATE CHILD_CHECKUP_HISTORY SET name = ?, gender = ?, birth_date = ?, regular_check_up_date = ?, height = ?, weight = ?, condition_description = ? WHERE id = ? ';
+    const query = 'INSERT INTO CHILD_CHECKUP_HISTORY (name, gender, birth_date, regular_check_up_date, height, weight, condition_description, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     const [result] = await connection.query(query, [
         childData.name,
         childData.gender,
@@ -60,6 +45,21 @@ const updateChildCheckupHistory = async (childId, childData) => {
         childData.height,
         childData.weight,
         childData.condition_description,
+        childData.user_id
+    ]);
+    return result.insertId; // Trả về ID của bản ghi mới được thêm vào
+};
+const updateChildCheckupHistory = async (childId, childData) => {
+    const query = 'UPDATE CHILD_CHECKUP_HISTORY SET name = ?, gender = ?, birth_date = ?, regular_check_up_date = ?, height = ?, weight = ?, condition_description = ?, user_id = ? WHERE id = ? ';
+    const [result] = await connection.query(query, [
+        childData.name,
+        childData.gender,
+        childData.birth_date,
+        childData.regular_check_up_date,
+        childData.height,
+        childData.weight,
+        childData.condition_description,
+        childData.user_id,
         childId,
     ]);
 };
@@ -75,8 +75,20 @@ const getAllMedicalHistory = async () => {
     let [result, fields] = await connection.query("SELECT * FROM MEDICAl_HISTORY");
     return result;
 };
+
+const getMedicalHistoryByID = async (id) => {
+    let [result, fields] = await connection.execute("SELECT * FROM MEDICAl_HISTORY WHERE id = ?", [id]);
+    return result;
+};
+
+
+const getMedicalHistoryByUserID = async (user_id) => {
+    let [result, fields] = await connection.execute("SELECT * FROM MEDICAl_HISTORY WHERE user_id = ?", [user_id]);
+    return result;
+};
+
 const addMedicalHistory = async (medicalHistoryData) => {
-    const query = 'INSERT INTO MEDICAL_HISTORY (clinic_name, examination_date, symptoms, symptom_description, genetic_history, medical_history, body_temperature, heart_rate, blood_pressure, blood_sugar, height, weight, initial_diagnosis, disease_name, main_medication, medication_image, medication_details, post_medication_diet_and_lifestyle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO MEDICAL_HISTORY (clinic_name, examination_date, symptoms, symptom_description, genetic_history, medical_history, body_temperature, heart_rate, blood_pressure, blood_sugar, height, weight, initial_diagnosis, disease_name, main_medication, medication_details, post_medication_diet_and_lifestyle, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const [result] = await connection.query(query, [
         medicalHistoryData.clinic_name,
         medicalHistoryData.examination_date,
@@ -93,14 +105,15 @@ const addMedicalHistory = async (medicalHistoryData) => {
         medicalHistoryData.initial_diagnosis,
         medicalHistoryData.disease_name,
         medicalHistoryData.main_medication,
-        medicalHistoryData.medication_image,
+        // medicalHistoryData.medication_image,
         medicalHistoryData.medication_details,
         medicalHistoryData.post_medication_diet_and_lifestyle,
+        medicalHistoryData.user_id
     ]);
     return result.insertId; // Trả về ID của bản ghi mới được thêm vào
 };
 const updateMedicalHistory = async (medicalHistoryId, medicalHistoryData) => {
-    const query = 'UPDATE MEDICAl_HISTORY SET clinic_name = ?, examination_date = ?, symptoms = ?, symptom_description = ?, genetic_history = ?, medical_history = ?, body_temperature = ?,heart_rate = ?, blood_pressure = ?, blood_sugar = ?, height = ?, weight = ?, initial_diagnosis = ?, disease_name = ?, main_medication = ?, medication_image = ?, medication_details = ?, post_medication_diet_and_lifestyle = ? WHERE id = ? ';
+    const query = 'UPDATE MEDICAl_HISTORY SET clinic_name = ?, examination_date = ?, symptoms = ?, symptom_description = ?, genetic_history = ?, medical_history = ?, body_temperature = ?,heart_rate = ?, blood_pressure = ?, blood_sugar = ?, height = ?, weight = ?, initial_diagnosis = ?, disease_name = ?, main_medication = ?, medication_details = ?, post_medication_diet_and_lifestyle = ?, user_id = ? WHERE id = ? ';
     const [result] = await connection.query(query, [
         medicalHistoryData.clinic_name,
         medicalHistoryData.examination_date,
@@ -117,9 +130,10 @@ const updateMedicalHistory = async (medicalHistoryId, medicalHistoryData) => {
         medicalHistoryData.initial_diagnosis,
         medicalHistoryData.disease_name,
         medicalHistoryData.main_medication,
-        medicalHistoryData.medication_image,
+        // medicalHistoryData.medication_image,
         medicalHistoryData.medication_details,
         medicalHistoryData.post_medication_diet_and_lifestyle,
+        medicalHistoryData.user_id,
         medicalHistoryId,
     ]);
 };
@@ -135,19 +149,24 @@ const getAllVaccinationHistory = async () => {
     let [result, fields] = await connection.query("SELECT * FROM VACCINATION_HISTORY");
     return result;
 };
+const getVaccinationHistoryByUserID = async (user_id) => {
+    let [result, fields] = await connection.execute("SELECT * FROM VACCINATION_HISTORY WHERE user_id = ?", [user_id]);
+    return result;
+};
 
 const addVaccinationHistory = async (vaccinationHistoryData) => {
-    const query = 'INSERT INTO VACCINATION_HISTORY (vaccination_dates, vaccination_names, vaccination_rooms, post_vaccination_status) VALUES (?, ?, ?, ?)';
+    const query = 'INSERT INTO VACCINATION_HISTORY (vaccination_dates, vaccination_names, vaccination_rooms, post_vaccination_status, user_id) VALUES (?, ?, ?, ?, ?)';
     const [result] = await connection.query(query, [
         vaccinationHistoryData.vaccination_dates,
         vaccinationHistoryData.vaccination_names,
         vaccinationHistoryData.vaccination_rooms,
         vaccinationHistoryData.post_vaccination_status,
+        vaccinationHistoryData.user_id,
     ]);
     return result.insertId; // Trả về ID của bản ghi mới được thêm vào
 };
 const updateVaccinationHistory = async (vaccinationHistoryID, vaccinationHistoryData) => {
-    const query = 'UPDATE VACCINATION_HISTORY SET vaccination_dates = ?, vaccination_names = ?, vaccination_rooms = ?, post_vaccination_status = ? WHERE id = ? ';
+    const query = 'UPDATE VACCINATION_HISTORY SET vaccination_dates = ?, vaccination_names = ?, vaccination_rooms = ?, post_vaccination_status = ?  WHERE id = ? ';
     const [result] = await connection.query(query, [
         vaccinationHistoryData.vaccination_dates,
         vaccinationHistoryData.vaccination_names,
@@ -187,9 +206,8 @@ const addUserProfiles = async (userProfilesData) => {
 };
 
 const updateUserProfiles = async (userProfilesId, userProfilesData) => {
-    const query = 'UPDATE USER_PROFILES SET user_id = ?, name = ?, gender = ?, birth_date = ?, cccd = ?, birth_place = ?, address = ? WHERE id = ? ';
+    const query = 'UPDATE USER_PROFILES SET name = ?, gender = ?, birth_date = ?, cccd = ?, birth_place = ?, address = ? WHERE id = ? ';
     const [result] = await connection.query(query, [
-        userProfilesData.user_id,
         userProfilesData.name,
         userProfilesData.gender,
         userProfilesData.birth_date,
@@ -216,10 +234,13 @@ module.exports = {
     updateChildCheckupHistory,
     deleteChildCheckupHistory,
     getAllMedicalHistory,
+    getMedicalHistoryByID,
+    getMedicalHistoryByUserID,
     addMedicalHistory,
     updateMedicalHistory,
     deleteMedicalHistory,
     getAllVaccinationHistory,
+    getVaccinationHistoryByUserID,
     addVaccinationHistory,
     updateVaccinationHistory,
     deleteVaccinationHistory,
