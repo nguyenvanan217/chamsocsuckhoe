@@ -35,6 +35,16 @@ const getAllChildCheckupHistory = async () => {
     let [result, fields] = await connection.query("SELECT * FROM CHILD_CHECKUP_HISTORY");
     return result;
 };
+
+const getChildCheckupHistoryByID = async (id) => {
+    let [result, fields] = await connection.query("SELECT * FROM CHILD_CHECKUP_HISTORY WHERE id = ?", [id]);
+    return result;
+};
+const getChildCheckupHistoryByUserID = async (user_id) => {
+    let [result, fields] = await connection.execute("SELECT * FROM CHILD_CHECKUP_HISTORY WHERE user_id = ?", [user_id]);
+    return result;
+};
+
 const addChildCheckupHistory = async (childData) => {
     const query = 'INSERT INTO CHILD_CHECKUP_HISTORY (name, gender, birth_date, regular_check_up_date, height, weight, condition_description, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     const [result] = await connection.query(query, [
@@ -149,29 +159,36 @@ const getAllVaccinationHistory = async () => {
     let [result, fields] = await connection.query("SELECT * FROM VACCINATION_HISTORY");
     return result;
 };
+const getVaccinationHistoryByID = async (id) => {
+    let [result, fields] = await connection.query("SELECT * FROM VACCINATION_HISTORY WHERE id = ?", [id]);
+    return result;
+};
 const getVaccinationHistoryByUserID = async (user_id) => {
     let [result, fields] = await connection.execute("SELECT * FROM VACCINATION_HISTORY WHERE user_id = ?", [user_id]);
     return result;
 };
 
 const addVaccinationHistory = async (vaccinationHistoryData) => {
-    const query = 'INSERT INTO VACCINATION_HISTORY (vaccination_dates, vaccination_names, vaccination_rooms, post_vaccination_status, user_id) VALUES (?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO VACCINATION_HISTORY (vaccination_dates, vaccination_names, vaccination_rooms, post_vaccination_status,caccination_costs, user_id) VALUES (?, ?, ?, ?, ?, ?)';
     const [result] = await connection.query(query, [
         vaccinationHistoryData.vaccination_dates,
         vaccinationHistoryData.vaccination_names,
         vaccinationHistoryData.vaccination_rooms,
         vaccinationHistoryData.post_vaccination_status,
+        vaccinationHistoryData.caccination_costs,
         vaccinationHistoryData.user_id,
     ]);
     return result.insertId; // Trả về ID của bản ghi mới được thêm vào
 };
 const updateVaccinationHistory = async (vaccinationHistoryID, vaccinationHistoryData) => {
-    const query = 'UPDATE VACCINATION_HISTORY SET vaccination_dates = ?, vaccination_names = ?, vaccination_rooms = ?, post_vaccination_status = ?  WHERE id = ? ';
+    const query = 'UPDATE VACCINATION_HISTORY SET vaccination_dates = ?, vaccination_names = ?, vaccination_rooms = ?, post_vaccination_status = ?, caccination_costs = ?, user_id = ?  WHERE id = ? ';
     const [result] = await connection.query(query, [
         vaccinationHistoryData.vaccination_dates,
         vaccinationHistoryData.vaccination_names,
         vaccinationHistoryData.vaccination_rooms,
         vaccinationHistoryData.post_vaccination_status,
+        vaccinationHistoryData.caccination_costs,
+        vaccinationHistoryData.user_id,
         vaccinationHistoryID,
     ]);
 }
@@ -230,6 +247,8 @@ module.exports = {
     updateUser,
     deleteUser,
     getAllChildCheckupHistory,
+    getChildCheckupHistoryByID,
+    getChildCheckupHistoryByUserID,
     addChildCheckupHistory,
     updateChildCheckupHistory,
     deleteChildCheckupHistory,
@@ -240,6 +259,7 @@ module.exports = {
     updateMedicalHistory,
     deleteMedicalHistory,
     getAllVaccinationHistory,
+    getVaccinationHistoryByID,
     getVaccinationHistoryByUserID,
     addVaccinationHistory,
     updateVaccinationHistory,
