@@ -17,6 +17,16 @@ function Vaccination() {
         caccination_costs: "",
         user_id: null,
     })
+
+    const [vaccinationDataPrev, setVaccinationDataPrev] = useState({
+        vaccination_dates: "",
+        vaccination_names: "",
+        vaccination_rooms: "",
+        post_vaccination_status: "",
+        caccination_costs: "",
+        user_id: null,
+    })
+
     useEffect(() => {
         const user_id = localStorage.getItem('user_id');
         if (user_id) {
@@ -25,6 +35,10 @@ function Vaccination() {
 
             // Cập nhật medicalHistory sau khi userId được thiết lập
             setVaccinationData(prevState => ({
+                ...prevState,
+                user_id: parsedUserId
+            }));
+            setVaccinationDataPrev(prevState => ({
                 ...prevState,
                 user_id: parsedUserId
             }));
@@ -38,6 +52,7 @@ function Vaccination() {
             try {
                 const data = await fetchVaccinationHistoryById(id);
                 setVaccinationData({ ...data[0], vaccination_dates: data[0].vaccination_dates.split('T')[0] });
+                setVaccinationDataPrev({ ...data[0], vaccination_dates: data[0].vaccination_dates.split('T')[0] });
             } catch (error) {
                 console.error("Failed to fetch vaccination history data", error);
             }
@@ -62,6 +77,7 @@ function Vaccination() {
         switch (key) {
             case "cancel":
                 setIsUpdate(false);
+                setVaccinationData(vaccinationDataPrev)
                 break;
             case "update":
                 setIsUpdate(true);

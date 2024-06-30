@@ -19,6 +19,16 @@ function ChildrenPerDisInfor() {
         condition_description: "",
         user_id: null,
     })
+    const [childCheckupDataPrev, setChildCheckupDataPrev] = useState({
+        name: "",
+        gender: "",
+        birth_date: "",
+        regular_check_up_date: "",
+        height: "",
+        weight: "",
+        condition_description: "",
+        user_id: null,
+    })
     useEffect(() => {
         const user_id = localStorage.getItem('user_id');
         if (user_id) {
@@ -27,6 +37,10 @@ function ChildrenPerDisInfor() {
 
             // Cập nhật medicalHistory sau khi userId được thiết lập
             setChildCheckupData(prevState => ({
+                ...prevState,
+                user_id: parsedUserId
+            }));
+            setChildCheckupDataPrev(prevState => ({
                 ...prevState,
                 user_id: parsedUserId
             }));
@@ -40,6 +54,7 @@ function ChildrenPerDisInfor() {
             try {
                 const data = await fetchChildCheckupHistoryById(id);
                 setChildCheckupData({ ...data[0], birth_date: data[0].birth_date.split('T')[0], regular_check_up_date: data[0].regular_check_up_date.split('T')[0] });
+                setChildCheckupDataPrev({ ...data[0], birth_date: data[0].birth_date.split('T')[0], regular_check_up_date: data[0].regular_check_up_date.split('T')[0] });
             } catch (error) {
                 console.error("Failed to fetch child chekup history data", error);
             }
@@ -64,6 +79,7 @@ function ChildrenPerDisInfor() {
         switch (key) {
             case "cancel":
                 setIsUpdate(false);
+                setChildCheckupData(childCheckupDataPrev)
                 break;
             case "update":
                 setIsUpdate(true);

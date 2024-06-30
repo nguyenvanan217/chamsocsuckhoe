@@ -12,12 +12,32 @@ export const fetchUserDatas = async () => {
     }
 }
 
+export const fetchUserDatasById = async (id) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/users/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        throw error;
+    }
+}
+
 export const addUser = async (userData) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/users`, userData);
         return response.data;
     } catch (error) {
         console.error("Error adding user:", error);
+        throw error;
+    }
+}
+
+export const updateUser = async (id, userData) => {
+    try {
+        const response = await axios.put(`${API_BASE_URL}/users/${id}`, userData);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching user data:", error);
         throw error;
     }
 }

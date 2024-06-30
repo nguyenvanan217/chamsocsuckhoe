@@ -29,6 +29,26 @@ function InforMedical() {
         post_medication_diet_and_lifestyle: "",
         user_id: null
     });
+    const [medicalHistoryPrev, setMedicalHistoryPrev] = useState({
+        clinic_name: "",
+        examination_date: "",
+        symptoms: "",
+        symptom_description: "",
+        genetic_history: "",
+        medical_history: "",
+        body_temperature: "",
+        heart_rate: "",
+        blood_pressure: "",
+        blood_sugar: "",
+        height: "",
+        weight: "",
+        initial_diagnosis: "",
+        disease_name: "",
+        main_medication: "",
+        medication_details: "",
+        post_medication_diet_and_lifestyle: "",
+        user_id: null
+    });
 
     useEffect(() => {
         const user_id = localStorage.getItem('user_id');
@@ -38,6 +58,11 @@ function InforMedical() {
 
             // Cập nhật medicalHistory sau khi userId được thiết lập
             setMedicalHistory(prevState => ({
+                ...prevState,
+                user_id: parsedUserId
+            }));
+
+            setMedicalHistoryPrev(prevState => ({
                 ...prevState,
                 user_id: parsedUserId
             }));
@@ -51,6 +76,7 @@ function InforMedical() {
             try {
                 const data = await fetchMedicalHistoryById(id);
                 setMedicalHistory({ ...data[0], examination_date: data[0].examination_date.split('T')[0] });
+                setMedicalHistoryPrev({ ...data[0], examination_date: data[0].examination_date.split('T')[0] });
             } catch (error) {
                 console.error("Failed to fetch medical history data", error);
             }
@@ -74,6 +100,7 @@ function InforMedical() {
         switch (key) {
             case "cancel":
                 setIsUpdate(false);
+                setMedicalHistory(medicalHistoryPrev)
                 break;
             case "update":
                 setIsUpdate(true);

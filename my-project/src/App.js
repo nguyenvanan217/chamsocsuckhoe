@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Vaccination from './Pages/vaccinationinformation/Vaccination';
 import Login from '../src/Pages/loginForm/Login';
-import Injection from './Pages/injectioninformation/Injection';
 import Resigter from './Pages/registerForm/Register';
 import MedicalHistory from './Pages/medicalhistory/MedicalHistory';
 import VaccinationHistory from './Pages/vaccinationhistory/VaccinationhHistory.jsx';
@@ -24,7 +23,6 @@ export default function App() {
             <Route path="/" element={<Login />} />
             <Route path="/dangky" element={<Resigter />} />
             <Route path="/thongtintiemphong/:id/:isCheckOrUpdate" element={<Vaccination />} />
-            <Route path="/thongtinmuitiem" element={<Injection />} />
         </Routes>
     </>;
 }

@@ -80,34 +80,34 @@ function MyInfor() {
         <div>
             <Menu />
             <div>
-                <h1 className="w-full bg-[#DDEDFD] text-[#152f96] font-semibold text-center p-3 text-xl">
+                <h1 className="w-full bg-[#DDEDFD] text-[#152f96] font-semibold text-center p-3">
                     Thông Tin Cá Nhân
                 </h1>
             </div>
             <div className="my-7 w-[1050px] mx-auto bg-[#38BDF8] p-6 rounded-lg">
                 <div className="flex justify-around items-center mb-4 py-3 ">
                     <p className='text-lg basis-1/5'>Họ và tên</p>
-                    <input type="text" className='bg-white flex basis-4/5 h-[40px] outline-none text-xl px-1' onChange={e => setName(e.target.value)} value={name} disabled={isChangeInfo ? false : true} />
+                    <input type="text" className='bg-white flex basis-4/5 h-[40px] outline-none px-1' onChange={e => setName(e.target.value)} value={name} disabled={isChangeInfo ? false : true} />
                 </div>
                 <div className="flex justify-around items-center mb-7">
                     <p className='text-lg basis-1/5'>Giới tính</p>
-                    <input type="text" className='bg-white flex basis-4/5 h-[40px] outline-none text-xl px-1' onChange={e => setGender(e.target.value)} value={gender} disabled={isChangeInfo ? false : true} />
+                    <input type="text" className='bg-white flex basis-4/5 h-[40px] outline-none px-1' onChange={e => setGender(e.target.value)} value={gender} disabled={isChangeInfo ? false : true} />
                 </div>
                 <div className="flex justify-around items-center mb-7">
                     <p className='text-lg basis-1/5'>Ngày Sinh</p>
-                    <input type="date" className='bg-white flex basis-4/5 h-[40px] outline-none text-xl px-1' onChange={e => setBirthDate(e.target.value)} value={birthDate} disabled={isChangeInfo ? false : true} />
+                    <input type="date" className='bg-white flex basis-4/5 h-[40px] outline-none px-1' onChange={e => setBirthDate(e.target.value)} value={birthDate} disabled={isChangeInfo ? false : true} />
                 </div>
                 <div className="flex justify-around items-center mb-7">
                     <p className='text-lg basis-1/5'>Căn Cước CD (Nếu có)</p>
-                    <input type="text" className='bg-white flex basis-4/5 h-[40px] outline-none text-xl px-1' onChange={e => setCccd(e.target.value)} value={cccd} disabled={isChangeInfo ? false : true} />
+                    <input type="text" className='bg-white flex basis-4/5 h-[40px] outline-none px-1' onChange={e => setCccd(e.target.value)} value={cccd} disabled={isChangeInfo ? false : true} />
                 </div>
                 <div className="flex justify-around items-center mb-7">
                     <p className='text-lg basis-1/5'>Nơi sinh</p>
-                    <input type="text" className='bg-white flex basis-4/5 h-[40px] outline-none text-xl px-1' onChange={e => setBirthPlace(e.target.value)} value={birthPlace} disabled={isChangeInfo ? false : true} />
+                    <input type="text" className='bg-white flex basis-4/5 h-[40px] outline-none px-1' onChange={e => setBirthPlace(e.target.value)} value={birthPlace} disabled={isChangeInfo ? false : true} />
                 </div>
                 <div className="flex justify-around items-center mb-7">
                     <p className='text-lg basis-1/5'>Địa chỉ thường trú</p>
-                    <input type="text" className='bg-white flex basis-4/5 h-[40px] outline-none text-xl px-1' onChange={e => setAddress(e.target.value)} value={address} disabled={isChangeInfo ? false : true} />
+                    <input type="text" className='bg-white flex basis-4/5 h-[40px] outline-none px-1' onChange={e => setAddress(e.target.value)} value={address} disabled={isChangeInfo ? false : true} />
                 </div>
                 <div className='flex justify-center gap-6'>
                     <button className="w-36 h-10 rounded-md text-base text-white bg-red-500" onClick={() => handelAccount()}>{!isChangeInfo ? "Chỉnh sửa" : "Huỷ"}</button>

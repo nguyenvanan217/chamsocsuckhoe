@@ -19,11 +19,11 @@ export const MenuList = [
     //     url: '/thongtintiemphong',
     //     cName: 'nav-links',
     // },
-    {
-        title: 'Thông Tin Mũi Tiêm',
-        url: '/thongtinmuitiem',
-        cName: 'nav-links',
-    },
+    // {
+    //     title: 'Thông Tin Mũi Tiêm',
+    //     url: '/thongtinmuitiem',
+    //     cName: 'nav-links',
+    // },
     {
         title: 'Lịch Sử Khám Chữa Bệnh',
         url: '/lichsukhamchuabenh',
