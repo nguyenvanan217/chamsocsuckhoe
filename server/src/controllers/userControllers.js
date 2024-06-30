@@ -1,4 +1,4 @@
-const { getAllUsers, addUserWithProfile, updateUser, deleteUser } = require("../service/SRUDService");
+const { getAllUsers, getUsersById, addUserWithProfile, updateUser, deleteUser } = require("../service/SRUDService");
 
 const getUsers = async (req, res) => {
     try {
@@ -6,6 +6,17 @@ const getUsers = async (req, res) => {
         return res.json(result);
     } catch (error) {
         console.error('Error fetching users:', error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+const _getUsersById = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await getUsersById(id);
+        return res.json(result);
+    } catch (error) {
+        console.error('Error updating user:', error);
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 };
@@ -49,6 +60,7 @@ const deleteUserById = async (req, res) => {
 
 module.exports = {
     getUsers,
+    _getUsersById,
     createUser,
     updateUserById,
     deleteUserById,

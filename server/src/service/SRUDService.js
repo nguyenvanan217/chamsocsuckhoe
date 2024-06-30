@@ -6,6 +6,11 @@ const getAllUsers = async () => {
     return result;
 };
 
+const getUsersById = async (id) => {
+    let [result, fields] = await connection.query("SELECT * FROM USERS WHERE id = ?", [id]);
+    return result;
+};
+
 const addUserWithProfile = async (userData) => {
     const query = 'INSERT INTO USERS (name, phone, email, password) VALUES (?, ?, ?, ?)';
     const [result] = await connection.query(query, [userData.name, userData.phone, userData.email, userData.password]);
@@ -243,6 +248,7 @@ const deleteUserProfiles = async (userProfilesId) => {
 
 module.exports = {
     getAllUsers,
+    getUsersById,
     addUserWithProfile,
     updateUser,
     deleteUser,

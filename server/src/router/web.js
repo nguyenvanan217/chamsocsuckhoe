@@ -1,5 +1,5 @@
 const express = require("express");
-const { getUsers, createUser, updateUserById, deleteUserById } = require("../controllers/userControllers");
+const { getUsers, _getUsersById, createUser, updateUserById, deleteUserById } = require("../controllers/userControllers");
 const { getChildCheckupHistory, _getChildCheckupHistoryById, _getChildCheckupHistoryByUserId, createChildCheckupHistory, updateChildCheckupHistoryById, deleteChildCheckupHistoryById } = require("../controllers/child_checkup_historyControllers");
 const { getMedicalHistory, _getMedicalHistoryByID, _getMedicalHistoryByUserID, createMedicalHistory, updateMedicalHistoryById, deleteMedicalHistoryById } = require("../controllers/medical_historyControllers");
 const { getVaccinationHistory, _getVaccinationHistoryByID, _getVaccinationHistoryByUserID, createVaccinationHistory, updateVaccinationHistoryById, deleteVaccinationHistoryById } = require("../controllers/vaccination_historyControllers");
@@ -7,6 +7,7 @@ const { getUserProfiles, _getUserProfilesByUserID, createUserProfiles, updateUse
 const router = express.Router();
 
 router.get("/users", getUsers);
+router.get("/users/:id", _getUsersById);
 router.post('/users', createUser);
 router.put('/users/:id', updateUserById);
 router.delete('/users/:id', deleteUserById);
