@@ -32,7 +32,7 @@ function ItemLeft() {
                 setIsLogin(true);
                 localStorage.setItem('user_id', JSON.stringify(userDatas[i].id));
                 loginSuccessful = true;
-                navigate('/thongtintiemchung');// chuyển tới trang phù hợp khi login thành công
+                navigate('/lichsukhamchuabenh');// chuyển tới trang phù hợp khi login thành công
                 break;
             }
         }
@@ -62,7 +62,7 @@ function ItemLeft() {
                     />
                     <div>
                         <input
-                            type="text"
+                            type="password"
                             placeholder="Mật khẩu"
                             className="w-full px-3 py-2 outline-0 text-[15px] border border-[#ccc] rounded-[3px]"
                             value={password}

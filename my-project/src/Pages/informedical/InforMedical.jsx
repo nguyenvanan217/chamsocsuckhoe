@@ -56,10 +56,10 @@ function InforMedical() {
             }
         };
 
-        if (userId && id !== 0) {
+        if (userId && id !== "0") {
             getMedicalHistory();
         }
-    }, [userId]);
+    }, [userId, id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -327,7 +327,7 @@ function InforMedical() {
                     </div>
                 </div>
                 <div className="flex justify-center my-8 gap-2">
-                    {id !== 0 &&
+                    {id !== "0" &&
                         (
                             isUpdate
                                 ?
@@ -347,7 +347,7 @@ function InforMedical() {
                         )}
 
                     {isUpdate &&
-                        (id === 0 ?
+                        (id !== "0" ?
                             <button
                                 onClick={() => handleSubmit("save")}
                                 className="bg-[#1684FF] px-8 py-3 text-white rounded-lg font-semibold text-lg"

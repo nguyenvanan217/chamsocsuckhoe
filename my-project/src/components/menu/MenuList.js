@@ -14,11 +14,11 @@ export const MenuList = [
     //     url: '/thongtinkhambenh',
     //     cName: 'nav-links',
     // },
-    {
-        title: 'Thông Tin Tiêm Chủng',
-        url: '/thongtintiemchung',
-        cName: 'nav-links',
-    },
+    // {
+    //     title: 'Thông Tin Tiêm Chủng',
+    //     url: '/thongtintiemphong',
+    //     cName: 'nav-links',
+    // },
     {
         title: 'Thông Tin Mũi Tiêm',
         url: '/thongtinmuitiem',
@@ -39,9 +39,9 @@ export const MenuList = [
         url: '/lichsukhamtreem',
         cName: 'nav-links',
     },
-    {
-        title: 'Thông Tin Khám Định Kỳ Trẻ Em',
-        url: '/thongtinkhamdinhkytreem',
-        cName: 'nav-links',
-    },
+    // {
+    //     title: 'Thông Tin Khám Định Kỳ Trẻ Em',
+    //     url: '/thongtinkhamdinhkytreem',
+    //     cName: 'nav-links',
+    // },
 ];

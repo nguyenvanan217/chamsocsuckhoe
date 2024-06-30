@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MdOutlineTipsAndUpdates, MdDelete } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Menu from '../../components/menu/Menu';
 
 import Button from '@mui/material/Button';
@@ -20,6 +20,7 @@ function VaccinationhHistory() {
 
     // lấy id người dùng vừa đăng nhập và kiểm tra đăng nhập
     useEffect(() => {
+        document.title = "Lịch sử tiêm phòng - Bộ Y Tế"
         const user_id = localStorage.getItem('user_id');
         if (user_id) {
             setUserId(JSON.parse(user_id));
@@ -67,7 +68,7 @@ function VaccinationhHistory() {
                 </h1>
             </div>
             <div className='w-[950px] mx-auto flex justify-end my-3'>
-                <button className='bg-green-500 text-white px-7 py-1 text-[17px] rounded-[3px]'>Thêm</button>
+                <Link to={`/thongtintiemphong/${0}/${true}`} className='bg-green-500 text-white px-7 py-1 text-[17px] rounded-[3px]'>Thêm</Link>
             </div>
             <div className="w-[950px] mx-auto">
                 <ul className="flex justify-between mb-3 p-[10px]">
@@ -84,17 +85,17 @@ function VaccinationhHistory() {
                     : (
                         vaccinationhHistoryList.map((item, index) => (
                             <div key={index} className="flex items-center bg-[#F2F2F2] rounded-md mb-3">
-                                <form className="flex w-full justify-between p-[10px]">
+                                <Link to={`/thongtintiemphong/${item.id}/${false}`} className="flex w-full justify-between p-[10px]">
                                     <span className="w-[10%] text-lg">{index + 1}</span>
-                                    <span className="w-[20%] text-lg">{item.vaccination_dates.split('T')[0]}</span>
+                                    <span className="w-[20%] text-lg">{item.vaccination_dates && item.vaccination_dates.split('T')[0]}</span>
                                     <span className="w-[25%] text-lg">{item.vaccination_names}</span>
                                     <span className="w-[25%] text-lg">{item.vaccination_rooms}</span>
                                     <span className="w-[30%] text-lg">{item.post_vaccination_status}</span>
-                                </form>
+                                </Link>
                                 <div className="flex gap-5 ml-3">
-                                    <div className="text-3xl cursor-pointer" >
+                                    <Link to={`/thongtintiemphong/${item.id}/${true}`} className="text-3xl cursor-pointer" >
                                         <MdOutlineTipsAndUpdates />
-                                    </div>
+                                    </Link>
                                     <div className="text-3xl cursor-pointer" onClick={() => handleClickOpen(item.id)}>
                                         <MdDelete />
                                     </div>

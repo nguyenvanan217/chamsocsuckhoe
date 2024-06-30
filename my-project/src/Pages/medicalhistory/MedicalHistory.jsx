@@ -20,6 +20,7 @@ function MedicalHistory() {
 
     // lấy id người dùng vừa đăng nhập và kiểm tra đăng nhập
     useEffect(() => {
+        document.title = "Lịch sử khám bệnh - Bộ Y Tế"
         const user_id = localStorage.getItem('user_id');
         if (user_id) {
             setUserId(JSON.parse(user_id));
@@ -90,9 +91,9 @@ function MedicalHistory() {
                                     <span className="w-[20%] text-lg">{item.main_medication}</span>
                                 </Link>
                                 <div className="flex gap-5 ml-3">
-                                    <div className="text-3xl cursor-pointer">
+                                    <Link to={`/thongtinkhambenh/${item.id}/${true}`} className="text-3xl cursor-pointer">
                                         <MdOutlineTipsAndUpdates />
-                                    </div>
+                                    </Link>
                                     <div className="text-3xl cursor-pointer" onClick={() => handleClickOpen(item.id)}>
                                         <MdDelete />
                                     </div>

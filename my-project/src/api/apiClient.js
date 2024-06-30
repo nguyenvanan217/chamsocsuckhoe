@@ -104,6 +104,16 @@ export const fetchVaccinationHistoryByUserId = async (user_id) => {
     }
 }
 
+export const fetchVaccinationHistoryById = async (id) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/vaccination_history/id/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching medical history data:", error);
+        throw error;
+    }
+}
+
 export const addVaccinationHistory = async (vaccinationHistoryData) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/vaccination_history`, vaccinationHistoryData);
@@ -129,6 +139,55 @@ export const deleteVaccinationHistory = async (id) => {
         return response.data;
     } catch (error) {
         console.error("Error fetching medical history data:", error);
+        throw error;
+    }
+}
+
+export const fetchChildCheckupHistoryByUserId = async (user_id) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/child_checkup_history/${user_id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching child_checkup_history data:", error);
+        throw error;
+    }
+}
+
+export const fetchChildCheckupHistoryById = async (id) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/child_checkup_history/id/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching child_checkup_history data:", error);
+        throw error;
+    }
+}
+
+export const addChildCheckupHistory = async (childCheckupHistoryData) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/child_checkup_history`, childCheckupHistoryData);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching child_checkup_history data:", error);
+        throw error;
+    }
+}
+
+export const updateChildCheckupHistory = async (id, childCheckupHistoryData) => {
+    try {
+        const response = await axios.put(`${API_BASE_URL}/child_checkup_history/${id}`, childCheckupHistoryData);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching child_checkup_history data:", error);
+        throw error;
+    }
+}
+export const deleteChildCheckupHistory = async (id) => {
+    try {
+        const response = await axios.delete(`${API_BASE_URL}/child_checkup_history/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching child_checkup_history data:", error);
         throw error;
     }
 }

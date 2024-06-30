@@ -15,15 +15,15 @@ export default function App() {
     return <>
         <Routes>
             <Route path="/thongtinnguoidung" element={<MyInfor />} />
-            <Route path="//thongtinkhambenh/:id/:isCheckOrUpdate" element={<InforMedical />} />
+            <Route path="/thongtinkhambenh/:id/:isCheckOrUpdate" element={<InforMedical />} />
             <Route path="/lichsukhamchuabenh" element={<MedicalHistory />} />
             <Route path="/lichsutiemphong" element={<VaccinationHistory />} />
-            <Route path="/thongtinkhamdinhkytreem" element={<ChildrenPerDisInfor />} />
+            <Route path="/thongtinkhamdinhkytreem/:id/:isCheckOrUpdate" element={<ChildrenPerDisInfor />} />
             <Route path="/thongtintaikhoan" element={<User />} />
             <Route path="/lichsukhamtreem" element={<ChildrenExHistory />} />
             <Route path="/" element={<Login />} />
             <Route path="/dangky" element={<Resigter />} />
-            <Route path="/thongtintiemchung" element={<Vaccination />} />
+            <Route path="/thongtintiemphong/:id/:isCheckOrUpdate" element={<Vaccination />} />
             <Route path="/thongtinmuitiem" element={<Injection />} />
         </Routes>
     </>;
