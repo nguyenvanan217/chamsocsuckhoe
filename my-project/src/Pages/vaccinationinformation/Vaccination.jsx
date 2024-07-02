@@ -83,7 +83,10 @@ function Vaccination() {
                 setIsUpdate(true);
                 break;
             case "add":
-                await addVaccinationHistory(vaccinationData);
+                await addVaccinationHistory({
+                    ...vaccinationData,
+                    vaccination_dates: vaccinationData.vaccination_dates && format(addDays(parseISO(vaccinationData.vaccination_dates), 1), 'yyyy-MM-dd')
+                });
                 navigate("/lichsutiemphong")
                 break;
             case "save":

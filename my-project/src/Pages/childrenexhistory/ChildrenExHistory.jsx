@@ -12,6 +12,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 function ChildrenExHistory() {
   const [childCheckupHistoryData, setChildCheckupHistoryData] = useState([]);
+  const [childCheckupHistoryFilterData, setChildCheckupHistoryFilterData] = useState([]);
   const [open, setOpen] = useState(false);
   const [idDelete, setIdDelete] = useState();
   const [userId, setUserId] = useState();
@@ -34,6 +35,7 @@ function ChildrenExHistory() {
         try {
           const data = await fetchChildCheckupHistoryByUserId(userId);
           setChildCheckupHistoryData(data);
+          setChildCheckupHistoryFilterData(data);
         } catch (error) {
           console.error("Failed to fetch child chelup history data", error);
         }
@@ -43,6 +45,7 @@ function ChildrenExHistory() {
   }, [userId])
 
   const confirmDelete = () => {
+    setChildCheckupHistoryFilterData(prev => prev.filter(e => e.id !== idDelete))
     setChildCheckupHistoryData(prev => prev.filter(e => e.id !== idDelete))
     setOpen(false);
     deleteChildCheckupHistory(idDelete);
@@ -57,6 +60,19 @@ function ChildrenExHistory() {
     setOpen(false);
   };
 
+  const hadleDateFilter = (e) => {
+    const value = e.target.value;
+    let filteredList;
+    if (value) {
+      filteredList = childCheckupHistoryData.filter(childCheckupHistory => {
+        return childCheckupHistory.regular_check_up_date && childCheckupHistory.regular_check_up_date.split('T')[0] === value;
+      });
+    } else {
+      filteredList = childCheckupHistoryData;
+    }
+    setChildCheckupHistoryFilterData(filteredList);
+  }
+
   return (
     <div>
       <Menu />
@@ -68,6 +84,11 @@ function ChildrenExHistory() {
       <Link className='w-[950px] mx-auto flex justify-end my-3' to={`/thongtinkhamdinhkytreem/${0}/${true}`}>
         <button className='bg-green-500 text-white px-7 py-1 text-[17px] rounded-[3px]'>Thêm</button>
       </Link>
+      <div className='w-[950px] mx-auto flex justify-between my-3 items-center'>
+        <span className='text-lg border border-spacing-1 py-[7px] px-3 rounded-md'>Thống kê theo ngày khám định kỳ</span>
+        <input type="date" className="border-gray-300 border rounded-md px-3 py-2 w-64 focus:outline-none focus:ring focus:border-blue-300"
+          onChange={e => hadleDateFilter(e)} />
+      </div>
       <div className="w-[950px] mx-auto">
         <ul className="flex mb-3 p-[10px]">
           <li className="text-lg w-[10%]">STT</li>
@@ -78,12 +99,12 @@ function ChildrenExHistory() {
           <li className="text-lg w-[15%]"></li>
         </ul>
 
-        {!childCheckupHistoryData.length ? (
+        {!childCheckupHistoryFilterData.length ? (
           <div className="w-full flex justify-center">
             Lịch sử trống
           </div>
         ) : (
-          childCheckupHistoryData.map((item, index) => (
+          childCheckupHistoryFilterData.map((item, index) => (
             <div key={index} className="flex items-center bg-[#F2F2F2] rounded-md mb-3">
               <Link className="flex w-full justify-between p-[10px]" to={`/thongtinkhamdinhkytreem/${item.id}/${false}`}>
                 <span className="w-[8%] text-lg">{index + 1}</span>

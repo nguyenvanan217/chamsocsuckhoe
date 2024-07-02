@@ -27,6 +27,7 @@ function InforMedical() {
         main_medication: "",
         medication_details: "",
         post_medication_diet_and_lifestyle: "",
+        examination_cost: "",
         user_id: null
     });
     const [medicalHistoryPrev, setMedicalHistoryPrev] = useState({
@@ -47,6 +48,7 @@ function InforMedical() {
         main_medication: "",
         medication_details: "",
         post_medication_diet_and_lifestyle: "",
+        examination_cost: "",
         user_id: null
     });
 
@@ -106,7 +108,10 @@ function InforMedical() {
                 setIsUpdate(true);
                 break;
             case "add":
-                await addMedicalHistory(medicalHistory);
+                await addMedicalHistory({
+                    ...medicalHistory,
+                    examination_date: medicalHistory.examination_date && format(addDays(parseISO(medicalHistory.examination_date), 1), 'yyyy-MM-dd')
+                });
                 navigate("/lichsukhamchuabenh")
                 break;
             case "save":
@@ -336,7 +341,6 @@ function InforMedical() {
                             type="text"
                             className="border w-72 h-9 outline-none px-2  bg-[#E8ECEF] text-black"
                             value={medicalHistory.medication_details}
-                            onChange={handleChange}
                             name="medication_details"
                             disabled={!isUpdate}
                         />
@@ -349,6 +353,18 @@ function InforMedical() {
                             value={medicalHistory.post_medication_diet_and_lifestyle}
                             onChange={handleChange}
                             name="post_medication_diet_and_lifestyle"
+                            disabled={!isUpdate}
+                        />
+                    </div>
+                    <div className="flex flex-col basis-1/3">
+                        <p className="mb-2 my-4">Chi phí khám bệnh</p>
+                        <input
+                            type="text"
+                            className="border w-72 h-9 outline-none px-2  bg-[#ff5656] text-white placeholder-white"
+                            value={medicalHistory.examination_cost}
+                            onChange={handleChange}
+                            name="examination_cost"
+                            placeholder='VNĐ'
                             disabled={!isUpdate}
                         />
                     </div>

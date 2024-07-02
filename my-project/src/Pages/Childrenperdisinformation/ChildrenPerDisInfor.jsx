@@ -85,7 +85,11 @@ function ChildrenPerDisInfor() {
                 setIsUpdate(true);
                 break;
             case "add":
-                await addChildCheckupHistory(childCheckupData);
+                await addChildCheckupHistory({
+                    ...childCheckupData,
+                    birth_date: childCheckupData.birth_date && format(addDays(parseISO(childCheckupData.birth_date), 1), 'yyyy-MM-dd'),
+                    regular_check_up_date: childCheckupData.regular_check_up_date && format(addDays(parseISO(childCheckupData.regular_check_up_date), 1), 'yyyy-MM-dd')
+                });
                 navigate("/lichsukhamtreem")
                 break;
             case "save":
