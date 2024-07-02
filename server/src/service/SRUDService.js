@@ -103,7 +103,7 @@ const getMedicalHistoryByUserID = async (user_id) => {
 };
 
 const addMedicalHistory = async (medicalHistoryData) => {
-    const query = 'INSERT INTO MEDICAL_HISTORY (clinic_name, examination_date, symptoms, symptom_description, genetic_history, medical_history, body_temperature, heart_rate, blood_pressure, blood_sugar, height, weight, initial_diagnosis, disease_name, main_medication, medication_details, post_medication_diet_and_lifestyle, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO MEDICAL_HISTORY (clinic_name, examination_date, symptoms, symptom_description, genetic_history, medical_history, body_temperature, heart_rate, blood_pressure, blood_sugar, height, weight, initial_diagnosis, disease_name, main_medication, medication_details, post_medication_diet_and_lifestyle,examination_cost, user_id) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const [result] = await connection.query(query, [
         medicalHistoryData.clinic_name,
         medicalHistoryData.examination_date,
@@ -123,12 +123,13 @@ const addMedicalHistory = async (medicalHistoryData) => {
         // medicalHistoryData.medication_image,
         medicalHistoryData.medication_details,
         medicalHistoryData.post_medication_diet_and_lifestyle,
+        medicalHistoryData.examination_cost,
         medicalHistoryData.user_id
     ]);
     return result.insertId; // Trả về ID của bản ghi mới được thêm vào
 };
 const updateMedicalHistory = async (medicalHistoryId, medicalHistoryData) => {
-    const query = 'UPDATE MEDICAl_HISTORY SET clinic_name = ?, examination_date = ?, symptoms = ?, symptom_description = ?, genetic_history = ?, medical_history = ?, body_temperature = ?,heart_rate = ?, blood_pressure = ?, blood_sugar = ?, height = ?, weight = ?, initial_diagnosis = ?, disease_name = ?, main_medication = ?, medication_details = ?, post_medication_diet_and_lifestyle = ?, user_id = ? WHERE id = ? ';
+    const query = 'UPDATE MEDICAl_HISTORY SET clinic_name = ?, examination_date = ?, symptoms = ?, symptom_description = ?, genetic_history = ?, medical_history = ?, body_temperature = ?,heart_rate = ?, blood_pressure = ?, blood_sugar = ?, height = ?, weight = ?, initial_diagnosis = ?, disease_name = ?, main_medication = ?, medication_details = ?, post_medication_diet_and_lifestyle = ?,examination_cost = ?, user_id = ? WHERE id = ? ';
     const [result] = await connection.query(query, [
         medicalHistoryData.clinic_name,
         medicalHistoryData.examination_date,
@@ -148,6 +149,7 @@ const updateMedicalHistory = async (medicalHistoryId, medicalHistoryData) => {
         // medicalHistoryData.medication_image,
         medicalHistoryData.medication_details,
         medicalHistoryData.post_medication_diet_and_lifestyle,
+        medicalHistoryData.examination_cost,
         medicalHistoryData.user_id,
         medicalHistoryId,
     ]);
