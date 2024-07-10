@@ -341,6 +341,7 @@ function InforMedical() {
                             type="text"
                             className="border w-72 h-9 outline-none px-2  bg-[#E8ECEF] text-black"
                             value={medicalHistory.medication_details}
+                            onChange={handleChange}
                             name="medication_details"
                             disabled={!isUpdate}
                         />
